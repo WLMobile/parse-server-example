@@ -23,3 +23,33 @@ Parse.Cloud.define('syncData', function(req, response){
 		}
 	});
 });
+
+Parse.Cloud.define('SyncArray'	, function(req, response){
+	var modelArray = [];
+	var newACL = new Parse.ACL();
+    newACL.setPublicReadAccess(false);
+    newACL.setPublicWriteAccess(false);
+    newACL.setReadAccess(req.params.data.userId,true);
+    newACL.setWriteAccess(req.params.data.userId,true);
+	var dataArray = req.params;
+
+	for(var i=0; i< dataArray.length; i++){
+		var CC = Parse.Object.extend(dataArray.parseClass);
+		var parseClass = new CC();
+		parseClass.set(dataArray.data);
+		parseClass.setACL(newACL);
+		modelArray[i] = parseClass;
+	}
+
+
+	Parse.Object.saveAll(modelArray,{
+    success: function(list) {
+      // All the objects were saved.
+      response.success("ok " );  //saveAll is now finished and we can properly exit with confidence :-)
+    },
+    error: function(error) {
+      // An error occurred while saving one of the objects.
+      response.error("failure on saving list ");
+    },
+  });
+});

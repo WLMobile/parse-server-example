@@ -11,7 +11,7 @@ Parse.Cloud.define('syncData', function(req, response){
 		success: function(parseClass){
 			response.success(parseClass);
 		},
-		error: function(error){
+		error: function(data,error){
 			response.error(error);
 		}
 	});

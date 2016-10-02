@@ -9,8 +9,9 @@ Parse.Cloud.define('syncData', function(req, response){
 	var parseClass = new CC();
 	//console.log(typeof req.params.data);
 	//parseClass.set("batchName", req.params.data.batchName);
-	parseClass.set(req.params.data);
-	parseClass.save(null, {
+	parseClass.set(req.params.data, {
+		success : function(){
+			parseClass.save(null, {
 		success: function(parseClass){
 			response.success(parseClass);
 		},
@@ -18,6 +19,9 @@ Parse.Cloud.define('syncData', function(req, response){
 			response.error(error);
 		}
 	});
+		}
+	});
+	
 
 	//response.success('succes...');
 });

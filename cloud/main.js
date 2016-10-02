@@ -6,7 +6,7 @@ Parse.Cloud.define('hello', function(req, res) {
 Parse.Cloud.define('syncData', function(req, response){
 	var Class = Parse.Object.extend(req.params.parseClass);
 	var parseClass = new Class();
-	parseClass.set(req.data);
+	parseClass.set(req.params.data);
 	parseClass.save(null, {
 		success: function(parseClass){
 			response.success(parseClass);

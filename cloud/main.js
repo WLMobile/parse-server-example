@@ -5,7 +5,7 @@ Parse.Cloud.define('hello', function(req, res) {
 
 Parse.Cloud.define('syncData', function(req, response){
 	var CC = Parse.Object.extend(req.params.parseClass);
-	//var parseClass = new CC();
+	var parseClass = new CC();
 	//parseClass.set("batchName":"test");
 	// parseClass.save(null, {
 	// 	success: function(parseClass){

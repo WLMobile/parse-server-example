@@ -4,8 +4,8 @@ Parse.Cloud.define('hello', function(req, res) {
 });
 
 Parse.Cloud.define('sync', function(req, res){
-	// var Class = Parse.Object.extend(req.class);
-	// var class = new Class();
+	 var Class = Parse.Object.extend(req.class);
+	 var parseClass = new Class();
 	// class.set(req.data);
 	// class.save(null, {
 	// 	success: function(class){

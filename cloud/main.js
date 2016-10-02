@@ -29,8 +29,8 @@ Parse.Cloud.define('SyncArray'	, function(req, response){
 	var newACL = new Parse.ACL();
     newACL.setPublicReadAccess(false);
     newACL.setPublicWriteAccess(false);
-    newACL.setReadAccess(req.params.data.userId,true);
-    newACL.setWriteAccess(req.params.data.userId,true);
+    newACL.setReadAccess(req.params.userId,true);
+    newACL.setWriteAccess(req.params.userId,true);
 	var dataArray = req.params;
 
 	for(var i=0; i< dataArray.length; i++){

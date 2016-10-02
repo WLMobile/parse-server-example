@@ -13,8 +13,8 @@ person.save(null,{
   success:function(person) { 
     response.success(person);
   },
-  error:function(error) {
-    response.error(error);
+  error:function(object, res) {
+    response.error(res);
   }
 });
 	//var Class = Parse.Object.extend(req.params.parseClass);

@@ -16,4 +16,5 @@ Parse.Cloud.define('syncData', function(req, response){
 			response.error(error);
 		}
 	});
+	
 });

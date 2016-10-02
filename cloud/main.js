@@ -4,21 +4,8 @@ Parse.Cloud.define('hello', function(req, res) {
 });
 
 Parse.Cloud.define('syncData', function(req, response){
-	var PersonClass = Parse.Object.extend("Person");
-var person = new PersonClass();
-
-person.set("age",25);
-
-person.save(null,{
-  success:function(person) { 
-    response.success(person);
-  },
-  error:function(object, res) {
-    response.error(res);
-  }
-});
-	//var Class = Parse.Object.extend(req.params.parseClass);
-	//var parseClass = new Class();
+	var CC = Parse.Object.extend(req.params.parseClass);
+	//var parseClass = new CC();
 	//parseClass.set("batchName":"test");
 	// parseClass.save(null, {
 	// 	success: function(parseClass){
@@ -29,5 +16,5 @@ person.save(null,{
 	// 	}
 	// });
 
-	//response.success('succes...');
+	response.success('succes...');
 });

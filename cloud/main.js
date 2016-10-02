@@ -5,6 +5,7 @@ Parse.Cloud.define('hello', function(req, res) {
 
 Parse.Cloud.define('syncData', function(req, response){
 	var CC = Parse.Object.extend("Batches");
+	Parse.Cloud.useMasterKey();
 	var parseClass = new CC();
 	parseClass.set(req.params.data);
 	parseClass.save(null, {

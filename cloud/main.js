@@ -13,7 +13,8 @@ Parse.Cloud.define('syncData', function(req, response){
     newACL.setReadAccess(req.params.data.userId,true);
     newACL.setWriteAccess(req.params.data.userId,true);
 	parseClass.setACL(newACL);
-	parseClass.save(req.params.data, {
+	parseClass.set(req.params.data);
+	parseClass.save(null, {
 		success: function(parseClass){
 			response.success(parseClass);
 		},

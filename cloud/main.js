@@ -7,12 +7,12 @@ Parse.Cloud.define('sync', function(req, res){
 	 var Class = Parse.Object.extend(req.class);
 	 var parseClass = new Class();
 	 parseClass.set(req.data);
-	// class.save(null, {
-	// 	success: function(class){
-	// 		response.success(class);
-	// 	},
-	// 	error: function(error){
-	// 		response.error(error);
-	// 	}
-	// })
+	parseClass.save(null, {
+		success: function(parseClass){
+			response.success(parseClass);
+		},
+		error: function(error){
+			response.error(error);
+		}
+	});
 });

@@ -8,11 +8,7 @@ Parse.Cloud.define('syncData', function(req, response){
 	//Parse.Cloud.useMasterKey();
 	var parseClass = new CC();
 	parseClass.setACL(new Parse.ACL(Parse.User.current()));
-	//console.log(typeof req.params.data);
-	//parseClass.set("batchName", req.params.data.batchName);
-	//parseClass.set();
 	parseClass.save(req.params.data, {
-		useMasterKey:true,
 		success: function(parseClass){
 			response.success(parseClass);
 		},
@@ -20,6 +16,4 @@ Parse.Cloud.define('syncData', function(req, response){
 			response.error(error);
 		}
 	});
-
-	//response.success('succes...');
 });

@@ -4,10 +4,10 @@ Parse.Cloud.define('hello', function(req, res) {
 });
 
 Parse.Cloud.define('syncData', function(req, response){
-	response.success('succes...');
-	// var Class = Parse.Object.extend(req.params.parseClass);
-	// var parseClass = new Class();
-	// parseClass.set("batchName":"test");
+	
+	var Class = Parse.Object.extend(req.params.parseClass);
+	var parseClass = new Class();
+	parseClass.set("batchName":"test");
 	// parseClass.save(null, {
 	// 	success: function(parseClass){
 	// 		response.success(parseClass);
@@ -16,4 +16,6 @@ Parse.Cloud.define('syncData', function(req, response){
 	// 		response.error(error);
 	// 	}
 	// });
+
+	response.success('succes...');
 });

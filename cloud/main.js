@@ -36,7 +36,7 @@ Parse.Cloud.define('SyncArray'	, function(req, response){
 	for(var i=0; i< dataArray.length; i++){
 		var CC = Parse.Object.extend(dataArray[i].parseClass);
 		var parseClass = new CC();
-		parseClass.set(dataArray[i].data.params);
+		parseClass.set(dataArray[i].data);
 		parseClass.setACL(newACL);
 		modelArray[i] = parseClass;
 	}

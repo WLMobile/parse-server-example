@@ -31,12 +31,12 @@ Parse.Cloud.define('SyncArray'	, function(req, response){
     newACL.setPublicWriteAccess(false);
     newACL.setReadAccess(req.params.userId,true);
     newACL.setWriteAccess(req.params.userId,true);
-	var dataArray = req.params;
+	var dataArray = req.params.data;
 
 	for(var i=0; i< dataArray.length; i++){
-		var CC = Parse.Object.extend(dataArray.parseClass);
+		var CC = Parse.Object.extend(dataArray[i].parseClass);
 		var parseClass = new CC();
-		parseClass.set(dataArray.data);
+		parseClass.set(dataArray[i].data.params);
 		parseClass.setACL(newACL);
 		modelArray[i] = parseClass;
 	}

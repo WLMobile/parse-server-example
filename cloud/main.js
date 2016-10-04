@@ -11,16 +11,21 @@ Parse.Cloud.define('updateData', function(req, response){
 	query.first({
 		sessionToken: req.user.getSessionToken(),
 		success: function(obj){
-			obj.set(req.params.data);
-			obj.save(null, {
-				sessionToken: req.user.getSessionToken(),
-				success: function(parseClass){
-					response.success(parseClass);
-				},
-				error: function(data,error){
-					response.success("Object not saved");
-				}
-			});
+			if(obj){
+				obj.set(req.params.data);
+				obj.save(null, {
+					sessionToken: req.user.getSessionToken(),
+					success: function(parseClass){
+						response.success(parseClass);
+					},
+					error: function(data,error){
+						response.success("Object not saved");
+					}
+				});
+			} else {
+				response.success('No object found');
+			}
+			
 		},
 		error: function(obj, error){
 			response.success("No result found");

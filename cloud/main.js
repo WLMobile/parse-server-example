@@ -9,8 +9,8 @@ Parse.Cloud.define('updateData', function(req, response){
 	query.equalTo("oid", req.params.data.oid);
 	query.first({
 		success: function(obj){
-			obj.set(req.params.data);
-			response.success('OK!');
+			//obj.set(req.params.data);
+			response.success(obj);
 		},
 		error: function(obj, error){
 			response.error(obj);

@@ -60,9 +60,6 @@ function updateData(req, response) {
 function listArray(req, response){
 	listObjects(req.params).then(function(results){
 		response.success(results);
-	},
-	function(error){
-		response.error(error);
 	});
 	
 }

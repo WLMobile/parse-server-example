@@ -18,12 +18,12 @@ Parse.Cloud.define('updateData', function(req, response){
 					response.success(parseClass);
 				},
 				error: function(data,error){
-					response.error(error);
+					response.error(data);
 				}
 			});
 		},
 		error: function(obj, error){
-			response.error(obj);
+			response.error(error);
 		}
 	});
 

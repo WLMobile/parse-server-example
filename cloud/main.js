@@ -18,12 +18,12 @@ Parse.Cloud.define('updateData', function(req, response){
 					response.success(parseClass);
 				},
 				error: function(data,error){
-					response.error(data);
+					response.success("Object not saved");
 				}
 			});
 		},
 		error: function(obj, error){
-			response.error(error);
+			response.success("No result found");
 		}
 	});
 

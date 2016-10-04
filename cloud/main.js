@@ -7,7 +7,7 @@ Parse.Cloud.define('updateData', updateData);
 
 Parse.Cloud.define('syncData', syncData);
 
-//Parse.Cloud.define('syncArray', syncArray);
+Parse.Cloud.define('syncArray', syncArray);
 //Parse.Cloud.define('listArray', listArray);
 
 function updateData(req, response) {
@@ -79,35 +79,35 @@ function updateData(req, response) {
 // 	return Parse.Promise.when(promisesArray);
 // }
 
-// function syncArray(req, response) {
-// 	var modelArray = [];
-// 	var newACL = new Parse.ACL();
-// 	newACL.setPublicReadAccess(false);
-// 	newACL.setPublicWriteAccess(false);
-// 	newACL.setReadAccess(req.params.userId, true);
-// 	newACL.setWriteAccess(req.params.userId, true);
-// 	var dataArray = req.params.data;
+function syncArray(req, response) {
+	var modelArray = [];
+	var newACL = new Parse.ACL();
+	newACL.setPublicReadAccess(false);
+	newACL.setPublicWriteAccess(false);
+	newACL.setReadAccess(req.params.userId, true);
+	newACL.setWriteAccess(req.params.userId, true);
+	var dataArray = req.params.data;
 
-// 	for (var i = 0; i < dataArray.length; i++) {
-// 		var CC = Parse.Object.extend(dataArray[i].parseClass);
-// 		var parseClass = new CC();
-// 		parseClass.set(dataArray[i].data);
-// 		parseClass.setACL(newACL);
-// 		modelArray[i] = parseClass;
-// 	}
+	for (var i = 0; i < dataArray.length; i++) {
+		var CC = Parse.Object.extend(dataArray[i].parseClass);
+		var parseClass = new CC();
+		parseClass.set(dataArray[i].data);
+		parseClass.setACL(newACL);
+		modelArray[i] = parseClass;
+	}
 
-// 	Parse.Object.saveAll(modelArray, {
-// 		success : function(list) {
-// 			// All the objects were saved.
-// 			response.success("ok ");
-// 			//saveAll is now finished and we can properly exit with confidence :-)
-// 		},
-// 		error : function(error) {
-// 			// An error occurred while saving one of the objects.
-// 			response.error("failure on saving list ");
-// 		},
-// 	});
-// }
+	Parse.Object.saveAll(modelArray, {
+		success : function(list) {
+			// All the objects were saved.
+			response.success("ok ");
+			//saveAll is now finished and we can properly exit with confidence :-)
+		},
+		error : function(error) {
+			// An error occurred while saving one of the objects.
+			response.error("failure on saving list ");
+		},
+	});
+}
 
 function syncData(req, response) {
 	var CC = Parse.Object.extend(req.params.parseClass);

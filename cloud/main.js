@@ -7,8 +7,8 @@ Parse.Cloud.define('updateData', updateData);
 
 Parse.Cloud.define('syncData', syncData);
 
-Parse.Cloud.define('SyncArray', syncArray);
-Parse.Cloud.define('listArray', listArray);
+Parse.Cloud.define('syncArray', syncArray);
+//Parse.Cloud.define('listArray', listArray);
 
 function updateData(req, response) {
 	//var CC = Parse.Object.extend(req.params.parseClass);
@@ -57,13 +57,13 @@ function updateData(req, response) {
 
 }
 
-function listArray(req, response){
-	response.success("OK");
-	// listObjects(req.params).then(function(results){
-	// 	response.success(results);
-	// });
+// function listArray(req, response){
+// 	response.success("OK");
+// 	// listObjects(req.params).then(function(results){
+// 	// 	response.success(results);
+// 	// });
 	
-}
+// }
 
 // function findObject(obj){
 // 	var query = new Parse.Query(obj.parseClass);

@@ -3,6 +3,22 @@ Parse.Cloud.define('hello', function(req, res) {
   res.success('Hello');
 });
 
+Parse.Cloud.define('updateData', function(req, response){
+	var CC = Parse.Object.extend(req.params.parseClass);
+	var query = Parse.Query(req.params.parseClass);
+	query.equalTo("oid", req.params.data.oid);
+	query.first({
+		success: function(obj){
+			obj.set(req.params.data);
+			response.success('OK!');
+		},
+		error: function(obj, error){
+			response.error(error);
+		}
+	});
+
+});
+
 Parse.Cloud.define('syncData', function(req, response){
 	var CC = Parse.Object.extend(req.params.parseClass);
 	//Parse.Cloud.useMasterKey();

@@ -11,7 +11,7 @@ Parse.Cloud.define('updateData', function(req, response){
 	query.find({
 		sessionToken: req.user.getSessionToken(),
 		success: function(obj){
-			//obj.set(req.params.data);
+			obj.set(req.params.data);
 			response.success(obj);
 		},
 		error: function(obj, error){

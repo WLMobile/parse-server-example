@@ -58,7 +58,7 @@ function updateData(req, response) {
 }
 
 function listArray(req, response){
-	response.success("OK");
+	//response.success("OK");
 	listObjects(req.params).then(function(results){
 		response.success(results);
 	});

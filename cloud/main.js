@@ -18,8 +18,8 @@ Parse.Cloud.define('updateData', function(req, response){
 				},
 				error: function(data,error){
 					response.error(error);
-				});
-			}
+				}
+			});
 		},
 		error: function(obj, error){
 			response.error(obj);

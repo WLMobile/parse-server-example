@@ -8,7 +8,7 @@ Parse.Cloud.define('updateData', function(req, response){
 	var query = new Parse.Query(req.params.parseClass);
 	console.log('OK');
 	query.equalTo("oid", req.params.data.oid);
-	query.find({
+	query.first({
 		sessionToken: req.user.getSessionToken(),
 		success: function(obj){
 			obj.set(req.params.data);

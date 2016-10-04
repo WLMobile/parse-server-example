@@ -2,7 +2,7 @@ Parse.Cloud.define('hello', function(req, res) {
 	res.success('Hello');
 });
 
-Parse.Cloud.define('updateArray', updateArray);
+//Parse.Cloud.define('updateArray', updateArray);
 Parse.Cloud.define('updateData', updateData);
 
 Parse.Cloud.define('syncData', syncData);

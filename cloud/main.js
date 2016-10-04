@@ -9,6 +9,7 @@ Parse.Cloud.define('updateData', function(req, response){
 	console.log('OK');
 	//query.equalTo("oid", req.params.data.oid);
 	query.find({
+		useMasterKey: true,
 		success: function(obj){
 			//obj.set(req.params.data);
 			response.success(obj);

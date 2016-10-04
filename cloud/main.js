@@ -67,7 +67,7 @@ function listArray(req, response){
 function findObject(obj){
 	var query = new Parse.Query(obj.parseClass);
 	query.equalTo("oid", obj.oid);
-	return query.first();
+	return query.find();
 }
 
 function listObjects(array){

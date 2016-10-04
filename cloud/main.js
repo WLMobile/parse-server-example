@@ -14,11 +14,12 @@ Parse.Cloud.define('updateData', function(req, response){
 			obj.set(req.params.data);
 			obj.save(null, {
 				success: function(parseClass){
-				response.success(parseClass);
-			},
-			error: function(data,error){
-				response.error(error);
-			});
+					response.success(parseClass);
+				},
+				error: function(data,error){
+					response.error(error);
+				});
+			}
 		},
 		error: function(obj, error){
 			response.error(obj);

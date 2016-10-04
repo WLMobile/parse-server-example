@@ -59,22 +59,24 @@ function updateData(req, response) {
 
 function listArray(req, response){
 	//response.success("OK");
-	listObjects(req.params).then(function(results){
+	listObjects(req.params, req.user.getSessionToken()).then(function(results){
 		response.success(results);
 	});
 	
 }
 
-function findObject(obj){
+function findObject(obj, sessionToken){
 	var query = new Parse.Query(obj.parseClass);
 	query.equalTo("oid", obj.oid);
-	return query.find();
+	return query.first({
+		sessionToken: sessionToken
+	});
 }
 
-function listObjects(array){
+function listObjects(array, sessionToken){
 	var promisesArray = [];
 	for(var i =0; i< array.length; i++){
-		promisesArray.push(findObject(array[i]));
+		promisesArray.push(findObject(array[i], sessionToken));
 	}
 	return Parse.Promise.when(promisesArray);
 }

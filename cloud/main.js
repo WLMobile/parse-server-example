@@ -6,6 +6,7 @@ Parse.Cloud.define('hello', function(req, res) {
 Parse.Cloud.define('updateData', function(req, response){
 	//var CC = Parse.Object.extend(req.params.parseClass);
 	var query = new Parse.Query(req.params.parseClass);
+	console.log('OK');
 	query.equalTo("oid", req.params.data.oid);
 	query.first({
 		success: function(obj){

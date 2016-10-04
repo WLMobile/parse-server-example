@@ -58,25 +58,26 @@ function updateData(req, response) {
 }
 
 function listArray(req, response){
-	listObjects(req.params).then(function(results){
-		response.success(results);
-	});
+	response.success("OK");
+	// listObjects(req.params).then(function(results){
+	// 	response.success(results);
+	// });
 	
 }
 
-function findObject(obj){
-	var query = new Parse.Query(obj.parseClass);
-	query.equalTo("oid", obj.oid);
-	return query.find();
-}
+// function findObject(obj){
+// 	var query = new Parse.Query(obj.parseClass);
+// 	query.equalTo("oid", obj.oid);
+// 	return query.find();
+// }
 
-function listObjects(array){
-	var promisesArray = [];
-	for(var i =0; i< array.length; i++){
-		promisesArray.push(findObject(array[i]));
-	}
-	return Parse.Promise.when(promisesArray);
-}
+// function listObjects(array){
+// 	var promisesArray = [];
+// 	for(var i =0; i< array.length; i++){
+// 		promisesArray.push(findObject(array[i]));
+// 	}
+// 	return Parse.Promise.when(promisesArray);
+// }
 
 function syncArray(req, response) {
 	var modelArray = [];

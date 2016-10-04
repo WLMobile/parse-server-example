@@ -2,11 +2,13 @@ Parse.Cloud.define('hello', function(req, res) {
 	res.success('Hello');
 });
 
+Parse.Cloud.define('updateArray', updateArray);
 Parse.Cloud.define('updateData', updateData);
 
 Parse.Cloud.define('syncData', syncData);
 
 Parse.Cloud.define('SyncArray', syncArray);
+Parse.Cloud.define('listArray', listArray);
 
 function updateData(req, response) {
 	//var CC = Parse.Object.extend(req.params.parseClass);
@@ -45,7 +47,6 @@ function updateData(req, response) {
 						response.error(error);
 					}
 				});
-
 			}
 
 		},
@@ -54,6 +55,30 @@ function updateData(req, response) {
 		}
 	});
 
+}
+
+function listArray(req, response){
+	listObjects(req.params).then(function(results){
+		response.success(results);
+	},
+	function(error){
+		response.error(error);
+	});
+	
+}
+
+function findObject(obj){
+	var query = new Parse.Query(obj.parseClass);
+	query.equalTo("oid", obj.oid);
+	return query.first();
+}
+
+function listObjects(array){
+	var promisesArray = [];
+	for(var i =0; i< array.length; i++){
+		promisesArray.push(findObject(array[i]));
+	}
+	return Parse.Promise.when(promisesArray);
 }
 
 function syncArray(req, response) {

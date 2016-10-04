@@ -13,7 +13,7 @@ Parse.Cloud.define('updateData', function(req, response){
 			response.success('OK!');
 		},
 		error: function(obj, error){
-			response.error(error);
+			response.error(obj);
 		}
 	});
 

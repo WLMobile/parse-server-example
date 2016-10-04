@@ -13,6 +13,7 @@ Parse.Cloud.define('updateData', function(req, response){
 		success: function(obj){
 			obj.set(req.params.data);
 			obj.save(null, {
+				sessionToken: req.user.getSessionToken(),
 				success: function(parseClass){
 					response.success(parseClass);
 				},

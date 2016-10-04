@@ -59,7 +59,7 @@ function updateData(req, response) {
 
 function listArray(req, response){
 	//response.success("OK");
-	listObjects(req.params, req.user.getSessionToken()).then(function(results){
+	listObjects(req.params.data, req.user.getSessionToken()).then(function(results){
 		response.success(results);
 	});
 	

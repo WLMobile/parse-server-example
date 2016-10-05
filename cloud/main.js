@@ -67,8 +67,8 @@ function listArray(req, response){
 
 function findObject(obj, sessionTokens){
 	var query = new Parse.Query(obj.parseClass);
-	query.equalTo("oid", obj.oid);
-	console.log("oid "+ obj.oid);
+	query.equalTo("oid", obj.data.oid);
+	console.log("oid "+ obj.data.oid);
 	return query.first({
 		sessionToken: sessionToken
 	});
@@ -83,7 +83,7 @@ function listObjects(array, sessionToken){
 }
 
 function syncArray(req, response) {
-	
+
 	var modelArray = [];
 	var newACL = new Parse.ACL();
 	newACL.setPublicReadAccess(false);
@@ -119,7 +119,7 @@ function getUpdatedObjects(dataArray, sessionToken, newACL){
 			parseClass.setACL(newACL);
 			modelArray[i] = Parse.Promise.as(parseClass);
 		} else {
-			modelArray[i] = findObject(dataArray[i].data.oid, sessionToken, dataArray[i].data).then(function(obj){
+			modelArray[i] = findObject(dataArray[i], sessionToken).then(function(obj){
 				obj.set(dataArray[i].data);
 				return Parse.Promise.as(obj);
 			});

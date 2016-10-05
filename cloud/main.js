@@ -72,6 +72,8 @@ function findObject(obj, sessionToken, response){
 	console.log("oid "+ obj.data.oid);
 	return query.first({
 		sessionToken: sessionToken
+	}).then(function(e){
+		console.log(e);
 	});
 }
 

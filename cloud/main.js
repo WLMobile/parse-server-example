@@ -101,7 +101,7 @@ function syncArray(req, response) {
 				response.success(list);
 				//saveAll is now finished and we can properly exit with confidence :-)
 			},
-			error : function(error) {
+			error : function(obj, error) {
 				// An error occurred while saving one of the objects.
 				response.error(error);
 			},

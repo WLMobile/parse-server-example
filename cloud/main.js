@@ -67,6 +67,7 @@ function listArray(req, response){
 
 function findObject(obj, sessionToken, response){
 	var query = new Parse.Query(obj.parseClass);
+	console.log("parseClass" + obj.parseClass);
 	query.equalTo("oid", obj.data.oid);
 	console.log("oid "+ obj.data.oid);
 	return query.first({
@@ -122,6 +123,7 @@ function getUpdatedObjects(dataArray, sessionToken, newACL, response){
 		} else {
 
 			modelArray[i] = findObject(dataArray[i], sessionToken, response).then(function(obj){
+				console.log(obj);
 				obj.set("varietal", test);
 				obj.save(null, {
 					sessionToken: sessionToken,

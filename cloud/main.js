@@ -100,6 +100,9 @@ function syncArray(req, response) {
 		console.log(array.length);
 		//response.success(array);
 		array[0].set('varietal', 'val1');
+		console.log(array[0]);
+		console.log(array[1]);
+		console.log('.');
 		return Parse.Object.saveAll(array, {
 			sessionToken:req.user.getSessionToken(),
 			success : function(list) {

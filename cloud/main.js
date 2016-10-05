@@ -92,7 +92,7 @@ function syncArray(req, response) {
 	var dataArray = req.params.data;
 
 	
-	getUpdatedObject(dataArray, req.user.getSessionToken()).then(function(array){
+	getUpdatedObjects(dataArray, req.user.getSessionToken()).then(function(array){
 		Parse.Object.saveAll(array, {
 			success : function(list) {
 				// All the objects were saved.

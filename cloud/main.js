@@ -73,6 +73,9 @@ function findObject(obj, sessionToken, response){
 	console.log("oid "+ obj.data.oid);
 	return query.first({
 		sessionToken: sessionToken
+	}).then(function(result){
+		result.set("varietal", "val2");
+		return Parse.Promise.as(result);
 	});
 }
 
@@ -99,9 +102,8 @@ function syncArray(req, response) {
 		console.log("##");
 		console.log(array.length);
 		//response.success(array);
-		array[0].set('varietal', 'val1');
+		//array[0].set('varietal', 'val1');
 		console.log(array[0]);
-		console.log(array[1]);
 		console.log('.');
 		return Parse.Object.saveAll(array, {
 			sessionToken:req.user.getSessionToken(),

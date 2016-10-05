@@ -73,9 +73,6 @@ function findObject(obj, sessionToken, response){
 	console.log("oid "+ obj.data.oid);
 	return query.first({
 		sessionToken: sessionToken
-	}).then(function(e){
-		console.log("$");
-		console.log(e.get("batchName"));
 	});
 }
 
@@ -99,7 +96,9 @@ function syncArray(req, response) {
 	// data array has parseClass and data params
 	
 	getUpdatedObjects(dataArray, req.user.getSessionToken(), newACL, response).then(function(array){
-		//response.success(array);
+		console.log("##");
+		console.log(array);
+		response.success(array);
 		// Parse.Object.saveAll(array, {
 		// 	success : function(list) {
 		// 		// All the objects were saved.
@@ -125,27 +124,7 @@ function getUpdatedObjects(dataArray, sessionToken, newACL, response){
 			parseClass.setACL(newACL);
 			modelArray[i] = Parse.Promise.as(parseClass);
 		} else {
-
-			modelArray[i] = findObject(dataArray[i], sessionToken, response).then(function(obj){
-				console.log("Hi");
-				console.log(modelArray[i]);
-				console.log(obj);
-				obj.then(function(ee){
-					console.log(ee);
-					ee.set("varietal", test);
-					ee.save(null, {
-						sessionToken: sessionToken,
-						success: function(obj1){
-							response.success(obj1);
-						}
-					});
-				});
-				
-			 	//obj.set(dataArray[i].data);
-			 	//return Parse.Promise.as(obj);
-			 });
-			console.log('Hello');
-			console.log(modelArray[i]);
+			modelArray[i] = findObject(dataArray[i], sessionToken, response);
 		}
 		
 	}

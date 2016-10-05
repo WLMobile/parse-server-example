@@ -99,6 +99,7 @@ function syncArray(req, response) {
 		console.log("##");
 		console.log(array.length);
 		//response.success(array);
+		array[0].set('varietal', 'val1');
 		return Parse.Object.saveAll(array, {
 			success : function(list) {
 				// All the objects were saved.

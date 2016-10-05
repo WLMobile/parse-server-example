@@ -94,6 +94,7 @@ function syncArray(req, response) {
 	// data array has parseClass and data params
 	
 	getUpdatedObjects(dataArray, req.user.getSessionToken(), newACL).then(function(array){
+		response.success("ok");
 		Parse.Object.saveAll(array, {
 			success : function(list) {
 				// All the objects were saved.

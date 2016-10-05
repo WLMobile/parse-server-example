@@ -69,10 +69,8 @@ function findObject(obj, sessionToken, response){
 	var query = new Parse.Query(obj.parseClass);
 	query.equalTo("oid", obj.data.oid);
 	console.log("oid "+ obj.data.oid);
-	 query.first({
+	return query.first({
 		sessionToken: sessionToken
-	}).then(function(e){
-		response.success("ok");
 	});
 }
 
@@ -96,7 +94,7 @@ function syncArray(req, response) {
 	// data array has parseClass and data params
 	
 	getUpdatedObjects(dataArray, req.user.getSessionToken(), newACL, response).then(function(array){
-		response.success(array);
+		//response.success(array);
 		// Parse.Object.saveAll(array, {
 		// 	success : function(list) {
 		// 		// All the objects were saved.
@@ -122,11 +120,12 @@ function getUpdatedObjects(dataArray, sessionToken, newACL, response){
 			parseClass.setACL(newACL);
 			modelArray[i] = Parse.Promise.as(parseClass);
 		} else {
-			modelArray[i] = findObject(dataArray[i], sessionToken, response);
-			// .then(function(obj){
-			// 	obj.set(dataArray[i].data);
-			// 	return Parse.Promise.as(obj);
-			// });
+
+			modelArray[i] = findObject(dataArray[i], sessionToken, response).then(function(obj){
+				response.success(obj);
+			 	//obj.set(dataArray[i].data);
+			 	//return Parse.Promise.as(obj);
+			 });
 		}
 		
 	}

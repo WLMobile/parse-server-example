@@ -124,7 +124,8 @@ function getUpdatedObjects(dataArray, sessionToken, newACL, response){
 			modelArray[i] = findObject(dataArray[i], sessionToken, response).then(function(obj){
 				obj.set("varietal", test);
 				obj.save(null, {
-					function(obj1){
+					sessionToken: sessionToken,
+					success: function(obj1){
 						response.success(obj1);
 					}
 				});

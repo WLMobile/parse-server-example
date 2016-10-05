@@ -65,7 +65,7 @@ function listArray(req, response){
 	
 }
 
-function findObject(obj, sessionTokens){
+function findObject(obj, sessionToken){
 	var query = new Parse.Query(obj.parseClass);
 	query.equalTo("oid", obj.data.oid);
 	console.log("oid "+ obj.data.oid);

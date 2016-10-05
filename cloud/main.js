@@ -127,7 +127,7 @@ function getUpdatedObjects(dataArray, sessionToken, newACL){
 		}
 		
 	}
-	return Parse.Promise.as(modelArray);
+	return Parse.Promise.when(modelArray);
 }
 
 function syncData(req, response) {

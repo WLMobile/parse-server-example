@@ -72,7 +72,7 @@ function findObject(obj, sessionToken, response){
 	 query.first({
 		sessionToken: sessionToken
 	}).then(function(e){
-		response.success(e);
+		response.success("ok");
 	});
 }
 

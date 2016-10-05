@@ -111,11 +111,19 @@ function syncArray(req, response) {
 function getUpdatedObjects(dataArray, sessionToken, newACL){
 	var modelArray = [];
 	for (var i = 0; i < dataArray.length; i++) {
-		var CC = Parse.Object.extend(dataArray[i].parseClass);
-		var parseClass = new CC();
-		parseClass.set(dataArray[i].data);
-		parseClass.setACL(newACL);
-		modelArray[i] = parseClass;
+		if(dataArray[i].data.isNew){
+			var CC = Parse.Object.extend(dataArray[i].parseClass);
+			var parseClass = new CC();
+			parseClass.set(dataArray[i].data);
+			parseClass.setACL(newACL);
+			modelArray[i] = Parse.Promise.as(parseClass);
+		} else {
+			modelArray[i] = findObject(dataArray[i].data.oid, sessionToken).then(function(obj){
+				obj.set(dataArray[i].data);
+				return Parse.Promise.as(obj);
+			});
+		}
+		
 	}
 	return Parse.Promise.as(modelArray);
 }

@@ -66,6 +66,7 @@ function listArray(req, response){
 }
 
 function findObject(obj, sessionToken){
+	success(obj);// Remove
 	var query = new Parse.Query(obj.parseClass);
 	query.equalTo("oid", obj.data.oid);
 	console.log("oid "+ obj.data.oid);
@@ -94,18 +95,18 @@ function syncArray(req, response) {
 	// data array has parseClass and data params
 	
 	getUpdatedObjects(dataArray, req.user.getSessionToken(), newACL).then(function(array){
-		//response.success(array);
-		Parse.Object.saveAll(array, {
-			success : function(list) {
-				// All the objects were saved.
-				response.success(list);
-				//saveAll is now finished and we can properly exit with confidence :-)
-			},
-			error : function(obj, error) {
-				// An error occurred while saving one of the objects.
-				response.error(error);
-			},
-		});
+		response.success(array);
+		// Parse.Object.saveAll(array, {
+		// 	success : function(list) {
+		// 		// All the objects were saved.
+		// 		response.success(list);
+		// 		//saveAll is now finished and we can properly exit with confidence :-)
+		// 	},
+		// 	error : function(obj, error) {
+		// 		// An error occurred while saving one of the objects.
+		// 		response.error(error);
+		// 	},
+		// });
 	});
 	
 }

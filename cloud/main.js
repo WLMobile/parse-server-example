@@ -92,7 +92,7 @@ function syncArray(req, response) {
 	var dataArray = req.params.data;
 
 	
-	getUpdatedObjects(dataArray, req.user.getSessionToken()).then(function(array){
+	getUpdatedObjects(dataArray, req.user.getSessionToken(), newACL).then(function(array){
 		Parse.Object.saveAll(array, {
 			success : function(list) {
 				// All the objects were saved.
@@ -108,7 +108,7 @@ function syncArray(req, response) {
 	
 }
 
-function getUpdatedObjects(dataArray, sessionToken){
+function getUpdatedObjects(dataArray, sessionToken, newACL){
 	var modelArray = [];
 	for (var i = 0; i < dataArray.length; i++) {
 		var CC = Parse.Object.extend(dataArray[i].parseClass);

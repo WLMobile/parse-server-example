@@ -123,6 +123,9 @@ function getUpdatedObjects(dataArray, sessionToken, newACL, response){
 		} else {
 
 			modelArray[i] = findObject(dataArray[i], sessionToken, response).then(function(obj){
+				console.log("Hi");
+				console.log(modelArray[i]);
+				console.log(obj);
 				obj.then(function(ee){
 					console.log(ee);
 					ee.set("varietal", test);
@@ -137,6 +140,8 @@ function getUpdatedObjects(dataArray, sessionToken, newACL, response){
 			 	//obj.set(dataArray[i].data);
 			 	//return Parse.Promise.as(obj);
 			 });
+			console.log('Hello');
+			console.log(modelArray[i]);
 		}
 		
 	}

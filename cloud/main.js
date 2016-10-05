@@ -91,6 +91,25 @@ function syncArray(req, response) {
 	newACL.setWriteAccess(req.params.userId, true);
 	var dataArray = req.params.data;
 
+	
+	getUpdatedObject(dataArray, req.user.getSessionToken()).then(function(array){
+		Parse.Object.saveAll(array, {
+			success : function(list) {
+				// All the objects were saved.
+				response.success(list);
+				//saveAll is now finished and we can properly exit with confidence :-)
+			},
+			error : function(error) {
+				// An error occurred while saving one of the objects.
+				response.error("failure on saving list ");
+			},
+		});
+	});
+	
+}
+
+function getUpdatedObjects(dataArray, sessionToken){
+	var modelArray = [];
 	for (var i = 0; i < dataArray.length; i++) {
 		var CC = Parse.Object.extend(dataArray[i].parseClass);
 		var parseClass = new CC();
@@ -98,18 +117,7 @@ function syncArray(req, response) {
 		parseClass.setACL(newACL);
 		modelArray[i] = parseClass;
 	}
-
-	Parse.Object.saveAll(modelArray, {
-		success : function(list) {
-			// All the objects were saved.
-			response.success("ok ");
-			//saveAll is now finished and we can properly exit with confidence :-)
-		},
-		error : function(error) {
-			// An error occurred while saving one of the objects.
-			response.error("failure on saving list ");
-		},
-	});
+	return Parse.Promise.as(modelArray);
 }
 
 function syncData(req, response) {

@@ -68,11 +68,13 @@ function listArray(req, response){
 function findObject(obj, sessionToken, response){
 	var query = new Parse.Query(obj.parseClass);
 	console.log("parseClass" + obj.parseClass);
+	console.log('session token '+ sessionToken);
 	query.equalTo("oid", obj.data.oid);
 	console.log("oid "+ obj.data.oid);
 	return query.first({
 		sessionToken: sessionToken
 	}).then(function(e){
+		console.log("$");
 		console.log(e);
 	});
 }

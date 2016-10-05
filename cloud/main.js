@@ -101,6 +101,7 @@ function syncArray(req, response) {
 		//response.success(array);
 		array[0].set('varietal', 'val1');
 		return Parse.Object.saveAll(array, {
+			sessionToken:req.user.getSessionToken(),
 			success : function(list) {
 				// All the objects were saved.
 				response.success(list);

@@ -122,7 +122,12 @@ function getUpdatedObjects(dataArray, sessionToken, newACL, response){
 		} else {
 
 			modelArray[i] = findObject(dataArray[i], sessionToken, response).then(function(obj){
-				response.success(obj);
+				obj.set("varietal", test);
+				obj.save(null, {
+					function(obj1){
+						response.success(obj1);
+					}
+				});
 			 	//obj.set(dataArray[i].data);
 			 	//return Parse.Promise.as(obj);
 			 });

@@ -94,7 +94,7 @@ function syncArray(req, response) {
 	// data array has parseClass and data params
 	
 	getUpdatedObjects(dataArray, req.user.getSessionToken(), newACL).then(function(array){
-		response.success("ok");
+		response.success(array);
 		Parse.Object.saveAll(array, {
 			success : function(list) {
 				// All the objects were saved.
@@ -120,10 +120,11 @@ function getUpdatedObjects(dataArray, sessionToken, newACL){
 			parseClass.setACL(newACL);
 			modelArray[i] = Parse.Promise.as(parseClass);
 		} else {
-			modelArray[i] = findObject(dataArray[i], sessionToken).then(function(obj){
-				obj.set(dataArray[i].data);
-				return Parse.Promise.as(obj);
-			});
+			modelArray[i] = findObject(dataArray[i], sessionToken);
+			// .then(function(obj){
+			// 	obj.set(dataArray[i].data);
+			// 	return Parse.Promise.as(obj);
+			// });
 		}
 		
 	}

@@ -103,7 +103,7 @@ function syncArray(req, response) {
 			},
 			error : function(error) {
 				// An error occurred while saving one of the objects.
-				response.error("failure on saving list ");
+				response.error(error);
 			},
 		});
 	});

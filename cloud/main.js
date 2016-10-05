@@ -74,7 +74,7 @@ function findObject(obj, sessionToken, response){
 	return query.first({
 		sessionToken: sessionToken
 	}).then(function(result){
-		result.set("varietal", "val2");
+		result.set(obj.data);
 		return Parse.Promise.as(result);
 	});
 }

@@ -75,7 +75,7 @@ function findObject(obj, sessionToken, response){
 		sessionToken: sessionToken
 	}).then(function(e){
 		console.log("$");
-		console.log(e);
+		console.log(e.get("batchName"));
 	});
 }
 

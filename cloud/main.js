@@ -65,7 +65,7 @@ function listArray(req, response){
 	
 }
 
-function findObject(obj, sessionToken, response){
+function findObject(obj, sessionToken){
 	var query = new Parse.Query(obj.parseClass);
 	console.log("parseClass" + obj.parseClass);
 	console.log('session token '+ sessionToken);
@@ -98,7 +98,7 @@ function syncArray(req, response) {
 	var dataArray = req.params.data;
 	// data array has parseClass and data params
 	
-	getUpdatedObjects(dataArray, req.user.getSessionToken(), newACL, response).then(function(array){
+	getUpdatedObjects(dataArray, req.user.getSessionToken(), newACL).then(function(array){
 		console.log("##");
 		console.log(array.length);
 		//response.success(array);
@@ -121,7 +121,7 @@ function syncArray(req, response) {
 	
 }
 
-function getUpdatedObjects(dataArray, sessionToken, newACL, response){
+function getUpdatedObjects(dataArray, sessionToken, newACL){
 	var modelArray = [];
 	for (var i = 0; i < dataArray.length; i++) {
 		if(dataArray[i].data.isNew){
@@ -131,7 +131,7 @@ function getUpdatedObjects(dataArray, sessionToken, newACL, response){
 			parseClass.setACL(newACL);
 			modelArray[i] = Parse.Promise.as(parseClass);
 		} else {
-			modelArray[i] = findObject(dataArray[i], sessionToken, response);
+			modelArray[i] = findObject(dataArray[i], sessionToken);
 		}
 		
 	}

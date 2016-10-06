@@ -88,7 +88,7 @@ function listObjects(array, sessionToken){
 }
 
 function syncArray(req, response) {
-
+	console.log(req.user);
 	var modelArray = [];
 	var newACL = new Parse.ACL();
 	newACL.setPublicReadAccess(false);

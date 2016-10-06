@@ -93,8 +93,8 @@ function syncArray(req, response) {
 	var newACL = new Parse.ACL();
 	newACL.setPublicReadAccess(false);
 	newACL.setPublicWriteAccess(false);
-	newACL.setReadAccess(req.params.userId, true);
-	newACL.setWriteAccess(req.params.userId, true);
+	newACL.setReadAccess(req.user.id, true);
+	newACL.setWriteAccess(req.user.id, true);
 	var dataArray = req.params.data;
 	// data array has parseClass and data params
 	

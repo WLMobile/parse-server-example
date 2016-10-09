@@ -79,7 +79,7 @@ function findObject(obj, sessionToken, newACL){
 			return Parse.Promise.as(result);
 		} else {
 			console.log('Object was not found during query ');
-			conole.log(obj);
+			console.log(obj);
 			var CC = Parse.Object.extend(obj.parseClass);
 			var parseClass = new CC();
 			parseClass.set(obj.data);

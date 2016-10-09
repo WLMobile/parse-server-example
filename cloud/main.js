@@ -88,7 +88,7 @@ function listObjects(array, sessionToken){
 }
 
 function syncArray(req, response) {
-	console.log(req.user);
+	//console.log(req.user);
 	var modelArray = [];
 	var newACL = new Parse.ACL();
 	newACL.setPublicReadAccess(false);
@@ -99,24 +99,27 @@ function syncArray(req, response) {
 	// data array has parseClass and data params
 	
 	getUpdatedObjects(dataArray, req.user.getSessionToken(), newACL).then(function(array){
-		console.log("##");
-		console.log(array.length);
-		//response.success(array);
-		//array[0].set('varietal', 'val1');
-		console.log(array[0]);
-		console.log('.');
-		return Parse.Object.saveAll(array, {
-			sessionToken:req.user.getSessionToken(),
-			success : function(list) {
-				// All the objects were saved.
-				response.success(list);
-				//saveAll is now finished and we can properly exit with confidence :-)
-			},
-			error : function(obj, error) {
-				// An error occurred while saving one of the objects.
-				response.error(error);
-			},
-		});
+		if(array && array.length >0){
+			console.log("##");
+			console.log(array.length);
+			//response.success(array);
+			//array[0].set('varietal', 'val1');
+			console.log(array[0]);
+			console.log('.');
+			return Parse.Object.saveAll(array, {
+				sessionToken:req.user.getSessionToken(),
+				success : function(list) {
+					// All the objects were saved.
+					response.success(list);
+					//saveAll is now finished and we can properly exit with confidence :-)
+				},
+				error : function(obj, error) {
+					// An error occurred while saving one of the objects.
+					response.error(error);
+				},
+			});
+		}
+		
 	});
 	
 }

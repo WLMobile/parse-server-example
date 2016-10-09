@@ -65,7 +65,7 @@ function listArray(req, response){
 	
 }
 
-function findObject(obj, sessionToken){
+function findObject(obj, sessionToken, newACL){
 	var query = new Parse.Query(obj.parseClass);
 	console.log("parseClass" + obj.parseClass);
 	console.log('session token '+ sessionToken);
@@ -74,8 +74,19 @@ function findObject(obj, sessionToken){
 	return query.first({
 		sessionToken: sessionToken
 	}).then(function(result){
-		result.set(obj.data);
-		return Parse.Promise.as(result);
+		if(result){
+			result.set(obj.data);
+			return Parse.Promise.as(result);
+		} else {
+			console.log('Object was not found during query ');
+			conole.log(obj);
+			var CC = Parse.Object.extend(obj.parseClass);
+			var parseClass = new CC();
+			parseClass.set(obj.data);
+			parseClass.setACL(newACL);
+			return Parse.Promise.as(parseClass);
+		}
+		
 	});
 }
 
@@ -118,6 +129,8 @@ function syncArray(req, response) {
 					response.error(error);
 				},
 			});
+		} else {
+			console.log("No object was found");
 		}
 		
 	});
@@ -134,7 +147,7 @@ function getUpdatedObjects(dataArray, sessionToken, newACL){
 			parseClass.setACL(newACL);
 			modelArray[i] = Parse.Promise.as(parseClass);
 		} else {
-			modelArray[i] = findObject(dataArray[i], sessionToken);
+			modelArray[i] = findObject(dataArray[i], sessionToken, newACL);
 		}
 		
 	}

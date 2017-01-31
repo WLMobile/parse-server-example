@@ -2,13 +2,91 @@ Parse.Cloud.define('hello', function(req, res) {
 	res.success('Hello');
 });
 
-//Parse.Cloud.define('updateArray', updateArray);
 Parse.Cloud.define('updateData', updateData);
-
 Parse.Cloud.define('syncData', syncData);
-
 Parse.Cloud.define('syncArray', syncArray);
 Parse.Cloud.define('listArray', listArray);
+Parse.Cloud.define('checkSteps', checkSteps)
+
+function checkSteps(req, response){
+	if(req.params.batchId && req.params.stepDate){
+		var query = new Parse.Query("step");
+		query.equalTo('batchId', req.params.batchId);
+	//	query.equalTo('done', 'false');
+		query.find({
+			sessionToken: req.user.getSessionToken(),
+			success: function(results){
+				for (var i = 0, len = results.length; i < len; i++) {
+					results[i].set({
+						'stepDate': req.params.stepDate,
+						done: "true"
+					});
+					results[i].save(null,{
+						sessionToken : req.user.getSessionToken(),
+						success: function(){
+							response.success("OK 123");
+						}
+					});
+				}
+				
+			}
+		})
+	}
+	
+
+}
+
+Parse.Cloud.define("getAllData", function(req, response) {
+
+
+	var promisesArray = [];
+	var output = {};
+	var classes = req.params.classes;
+	classes.forEach(function(item){
+		var query = new Parse.Query(item);
+		query.limit(1000);
+		query.notEqualTo('deleted', true)
+		promisesArray.push(query.find({
+  			sessionToken: req.user.getSessionToken()
+  		}).then(function(results){
+  			output[item] = results
+  			return Parse.Promise.as({item: results});
+  		}));
+
+
+	});
+
+	return Parse.Promise.when(promisesArray).then(function(items){
+		response.success(output);
+	}, function(error){
+		response.success('An error occurred');
+	});
+});
+
+
+
+Parse.Cloud.define('getLastBatchUpdates', getLastBatchUpdates);
+
+function getLastBatchUpdates(req, response){
+	var query = new Parse.Query("batch");
+	//var date = new Date();
+	console.log('...');
+	console.log(req.params.date);
+	query.greaterThanOrEqualTo('updatedAt', new Date(req.params.date));
+	//query.ascending('createdAt');
+	query.find({
+		sessionToken: req.user.getSessionToken(),
+		success: function(obj){
+			if(obj){
+				response.success(obj);
+			}
+		},
+		error: function(){
+			response.success("Got no result");
+		}
+	})
+
+}
 
 function updateData(req, response) {
 	//var CC = Parse.Object.extend(req.params.parseClass);
@@ -111,18 +189,11 @@ function syncArray(req, response) {
 	
 	getUpdatedObjects(dataArray, req.user.getSessionToken(), newACL).then(function(array){
 		if(array && array.length >0){
-			console.log("##");
-			console.log(array.length);
-			//response.success(array);
-			//array[0].set('varietal', 'val1');
-			console.log(array[0]);
-			console.log('.');
 			return Parse.Object.saveAll(array, {
 				sessionToken:req.user.getSessionToken(),
 				success : function(list) {
 					// All the objects were saved.
 					response.success(list);
-					//saveAll is now finished and we can properly exit with confidence :-)
 				},
 				error : function(obj, error) {
 					// An error occurred while saving one of the objects.

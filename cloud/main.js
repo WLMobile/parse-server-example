@@ -13,9 +13,7 @@ Parse.Cloud.define('getLastBatchUpdates', getLastBatchUpdates);
 
 
 function getUpdates(req, response) {
-	if(req.params.lastUpdate){
-
-	} else return getAllData(req, response);
+	return getAllData(req, response);
 
 }
 
@@ -57,6 +55,9 @@ function checkSteps(req, response){
 		var query = new Parse.Query(item);
 		query.limit(1000);
 		query.notEqualTo('deleted', true)
+		if(req.params.lastUpdate)
+			query.greaterThan('updatedAt', req.params.lastUpdate);
+
 		promisesArray.push(query.find({
   			sessionToken: req.user.getSessionToken()
   		}).then(function(results){

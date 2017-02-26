@@ -6,7 +6,18 @@ Parse.Cloud.define('updateData', updateData);
 Parse.Cloud.define('syncData', syncData);
 Parse.Cloud.define('syncArray', syncArray);
 Parse.Cloud.define('listArray', listArray);
-Parse.Cloud.define('checkSteps', checkSteps)
+Parse.Cloud.define('checkSteps', checkSteps);
+Parse.Cloud.define('getAllData', getAllData);
+Parse.Cloud.define('getUpdates', getUpdates);
+Parse.Cloud.define('getLastBatchUpdates', getLastBatchUpdates);
+
+
+function getUpdates(req, response) {
+	if(req.params.lastUpdate){
+
+	} else return getAllData(req, response);
+
+}
 
 function checkSteps(req, response){
 	if(req.params.batchId && req.params.stepDate){
@@ -36,7 +47,7 @@ function checkSteps(req, response){
 
 }
 
-Parse.Cloud.define("getAllData", function(req, response) {
+ function getAllData(req, response) {
 
 
 	var promisesArray = [];
@@ -61,11 +72,7 @@ Parse.Cloud.define("getAllData", function(req, response) {
 	}, function(error){
 		response.success('An error occurred');
 	});
-});
-
-
-
-Parse.Cloud.define('getLastBatchUpdates', getLastBatchUpdates);
+}
 
 function getLastBatchUpdates(req, response){
 	var query = new Parse.Query("batch");

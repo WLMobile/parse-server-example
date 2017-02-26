@@ -56,8 +56,9 @@ function checkSteps(req, response){
 		query.limit(1000);
 		query.notEqualTo('deleted', true)
 		if(req.params.lastUpdate){
+			var lastUpdate = new Date(req.params.lastUpdate)
 			console.log('Got last update', req.params.lastUpdate);
-			query.greaterThan('updatedAt', req.params.lastUpdate);
+			query.greaterThan('updatedAt', lastUpdate);
 		}
 
 		promisesArray.push(query.find({

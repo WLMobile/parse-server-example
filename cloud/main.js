@@ -55,8 +55,10 @@ function checkSteps(req, response){
 		var query = new Parse.Query(item);
 		query.limit(1000);
 		query.notEqualTo('deleted', true)
-		if(req.params.lastUpdate)
+		if(req.params.lastUpdate){
+			console.log('Got last update', req.params.lastUpdate);
 			query.greaterThan('updatedAt', req.params.lastUpdate);
+		}
 
 		promisesArray.push(query.find({
   			sessionToken: req.user.getSessionToken()

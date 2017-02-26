@@ -54,11 +54,15 @@ function checkSteps(req, response){
 	classes.forEach(function(item){
 		var query = new Parse.Query(item);
 		query.limit(1000);
-		query.notEqualTo('deleted', true)
+		
 		if(req.params.lastUpdate){
+			// Get latest updates
 			var lastUpdate = new Date(req.params.lastUpdate)
 			console.log('Got last update', req.params.lastUpdate);
 			query.greaterThan('updatedAt', lastUpdate);
+		} else {
+			// Do not get deleted items when getting all data
+			query.notEqualTo('deleted', true);
 		}
 
 		promisesArray.push(query.find({

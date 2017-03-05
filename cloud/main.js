@@ -27,7 +27,7 @@ function updateAromaNames(req, response) {
 					results[i].save(null, {
 						sessionToken: req.user.getSessionToken(),
 						success: function(){
-							response.success"OK";
+							response.success("OK");
 						}
 					});
 				}

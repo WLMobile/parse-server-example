@@ -10,7 +10,31 @@ Parse.Cloud.define('checkSteps', checkSteps);
 Parse.Cloud.define('getAllData', getAllData);
 Parse.Cloud.define('getUpdates', getUpdates);
 Parse.Cloud.define('getLastBatchUpdates', getLastBatchUpdates);
+Parse.Cloud.define('updateAromaNames', updateAromaNames);
 
+function updateAromaNames(req, response) {
+	if(req.params.aromaName && req.params.aromaId){
+		var query = new Parse.Query("aromatic");
+		query.equalTo('aromaId', req.params.aromaId);
+		query.find({
+			sessionToken: req.user.getSessionToken(),
+			success: function(results){
+				var res = [];
+				for(var i = 0; len = results.length; i<len, i++){
+					results[i].set({
+						aromaName : req.params.aromaName
+					});
+					results[i].save(null, {
+						sessionToken: req.user.getSessionToken(),
+						success: function(){
+							response.success"OK";
+						}
+					});
+				}
+			}
+		})
+	}
+}
 
 function getUpdates(req, response) {
 	return getAllData(req, response);

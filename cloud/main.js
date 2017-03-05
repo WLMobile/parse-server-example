@@ -16,7 +16,7 @@ function updateAromaNames(req, response) {
 	if(req.params.aromaName && req.params.aromaId){
 		var query = new Parse.Query("aromatics");
 		query.equalTo('aromaId', req.params.aromaId);
-		query.equalTo('deleted', false);
+		query.notEqualTo('deleted', true);
 		console.log('Updating aromas with aromaId '+ req.params.aromaId);
 		query.find({
 			sessionToken: req.user.getSessionToken(),

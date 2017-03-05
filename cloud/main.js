@@ -14,15 +14,15 @@ Parse.Cloud.define('updateAromaNames', updateAromaNames);
 
 function updateAromaNames(req, response) {
 	if(req.params.aromaName && req.params.aromaId){
-		var query = new Parse.Query("aromatic");
+		var query = new Parse.Query("aromatics");
 		query.equalTo('aromaId', req.params.aromaId);
 		query.find({
 			sessionToken: req.user.getSessionToken(),
 			success: function(results){
 				var res = [];
-				for(var i = 0; len = results.length; i<len, i++){
+				for(var i = 0, len = results.length; i < len; i++){
 					results[i].set({
-						aromaName : req.params.aromaName
+						"aromaName" : req.params.aromaName
 					});
 					results[i].save(null, {
 						sessionToken: req.user.getSessionToken(),
@@ -32,7 +32,7 @@ function updateAromaNames(req, response) {
 					});
 				}
 			}
-		})
+		});
 	}
 }
 

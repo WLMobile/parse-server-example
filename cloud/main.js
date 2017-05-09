@@ -11,6 +11,7 @@ Parse.Cloud.define('getAllData', getAllData);
 Parse.Cloud.define('getUpdates', getUpdates);
 Parse.Cloud.define('getLastBatchUpdates', getLastBatchUpdates);
 Parse.Cloud.define('updateAromaNames', updateAromaNames);
+Parse.Cloud.define('updateACL', updateACL);
 
 function updateAromaNames(req, response) {
 	if(req.params.aromaName && req.params.aromaId){
@@ -284,5 +285,16 @@ function syncData(req, response) {
 		error : function(data, error) {
 			response.error(error);
 		}
+	});
+}
+
+function updateACL(req, response){
+	var query = new Parse.Query("Person");
+
+	query.first().then(function(result){
+		var acl = result.getACL();
+		acl.setReadAccess("8rWzq64aG7", true);
+		result.setACL(acl);
+		result.save();
 	});
 }

@@ -295,6 +295,15 @@ function updateACL(req, response){
 		var acl = result.getACL();
 		acl.setReadAccess("8rWzq64aG7", true);
 		result.setACL(acl);
-		result.save();
+		result.save(null, {
+			success: function(){
+				response.success("OK")
+			},
+			error: function(data, error){
+				response.error(error);
+			}
+		});
+
 	});
+
 }

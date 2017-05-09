@@ -289,6 +289,7 @@ function syncData(req, response) {
 }
 
 function updateACL(req, response){
+	Parse.Cloud.useMasterKey();
 	var query = new Parse.Query("Person");
 
 	query.first().then(function(result){

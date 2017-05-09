@@ -295,12 +295,13 @@ function updateACL(req, response){
 	query.first().then(function(result){
 		console.log("got result "+ JSON.stringify(result));
 		var acl = result.getACL();
-		console.log("got acl");
+		console.log("got acl "+JSON.stringify(acl));
 		acl.setReadAccess("8rWzq64aG7", true);
 		console.log("set read access, setting ACL");
 		result.setACL(acl);
 
 		result.save(null, {
+			useMasterKey: true,
 			success: function(){
 				response.success("OK")
 			},

@@ -294,9 +294,10 @@ function updateACL(req, response){
 
 	query.first().then(function(result){
 		console.log("got result "+ JSON.stringify(result));
-		var acl = result.getACL();
+		var acl = result.getACL() || new Parse.ACL();
+
 		console.log("got acl "+JSON.stringify(acl));
-		acl.setReadAccess("8rWzq64aG7", true);
+		acl.setReadAccess(req.params.userId, true);
 		console.log("set read access, setting ACL");
 		result.setACL(acl);
 

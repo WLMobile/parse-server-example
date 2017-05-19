@@ -220,8 +220,8 @@ function listObjects(array, sessionToken){
 }
 
 function deleteObjects(req, response){
-	var query = new Parse.Query(req.data.parseClass);
-	query.equalTo("oid", req.data.oid);
+	var query = new Parse.Query(req.params.parseClass);
+	query.equalTo("oid", req.params.oid);
 	var promisesArray = [];
 	query.find({
 			sessionToken: req.user.getSessionToken(),

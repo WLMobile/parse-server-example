@@ -244,7 +244,9 @@ function deleteObjects(req, response){
 				}
 			}
 		});
-	return Parse.Promise.when(promisesArray);
+	return Parse.Promise.when(promisesArray).then(function(){
+		response.success("ok");
+	});
 
 }
 

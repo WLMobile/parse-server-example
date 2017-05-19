@@ -12,6 +12,7 @@ Parse.Cloud.define('getUpdates', getUpdates);
 Parse.Cloud.define('getLastBatchUpdates', getLastBatchUpdates);
 Parse.Cloud.define('updateAromaNames', updateAromaNames);
 Parse.Cloud.define('updateACL', updateACL);
+Parse.Cloud.define('deleteObjects', deleteObjects);
 
 function updateAromaNames(req, response) {
 	if(req.params.aromaName && req.params.aromaId){
@@ -217,6 +218,35 @@ function listObjects(array, sessionToken){
 	}
 	return Parse.Promise.when(promisesArray);
 }
+
+function deleteObjects(req, response){
+	var query = new Parse.Query(req.data.parseClass);
+	query.equalTo("oid", req.data.oid);
+	var promisesArray = [];
+	query.find({
+			sessionToken: req.user.getSessionToken(),
+			success: function(results){
+				var res = [];
+				for(var i = 0, len = results.length; i < len; i++){
+					results[i].set({
+						"deleted" : true
+					});
+					promisesArray.push(results[i].save(null, {
+						sessionToken: req.user.getSessionToken(),
+						success: function(){
+							console.log("deleted");
+						},
+						error: function(){
+							console.log("error deleting");
+						}
+					}));
+				}
+			}
+		});
+	return Parse.Promise.when(promisesArray);
+
+}
+
 
 function syncArray(req, response) {
 	//console.log(req.user);

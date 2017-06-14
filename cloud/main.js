@@ -268,7 +268,7 @@ function syncArray(req, response) {
 				sessionToken:req.user.getSessionToken(),
 				success : function(list) {
 					// All the objects were saved.
-					response.success(list);
+					response.success("OK");
 				},
 				error : function(obj, error) {
 					// An error occurred while saving one of the objects.

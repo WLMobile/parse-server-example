@@ -105,7 +105,7 @@ function checkSteps(req, response){
 	});
 
 	return Parse.Promise.when(promisesArray).then(function(items){
-		output.date = now;
+		response.headers.set("Person", "Hani");
 		response.success(output);
 	}, function(error){
 		response.success('An error occurred');

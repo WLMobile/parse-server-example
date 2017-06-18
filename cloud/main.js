@@ -79,6 +79,7 @@ function checkSteps(req, response){
 	var promisesArray = [];
 	var output = {};
 	var classes = req.params.classes;
+	var now = new Date().toISOString();
 	classes.forEach(function(item){
 		var query = new Parse.Query(item);
 		query.limit(1000);
@@ -104,6 +105,7 @@ function checkSteps(req, response){
 	});
 
 	return Parse.Promise.when(promisesArray).then(function(items){
+		output.date = now;
 		response.success(output);
 	}, function(error){
 		response.success('An error occurred');

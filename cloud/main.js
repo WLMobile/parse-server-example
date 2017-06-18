@@ -106,7 +106,7 @@ function checkSteps(req, response){
 
 	return Parse.Promise.when(promisesArray).then(function(items){
 
-		response.success({data: JSON.stringify(output)});
+		response.success(JSON.stringify({data: output}));
 	}, function(error){
 		response.success('An error occurred');
 	});

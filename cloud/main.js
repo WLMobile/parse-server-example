@@ -105,8 +105,11 @@ function checkSteps(req, response){
 	});
 
 	return Parse.Promise.when(promisesArray).then(function(items){
+		if(req.params.version && req.params.version >=2)
+			response.success({date: now, data: output});
+		else	
+			response.success(output);
 
-		response.success(JSON.stringify({data: output}));
 	}, function(error){
 		response.success('An error occurred');
 	});

@@ -266,25 +266,30 @@ function syncArray(req, response) {
 	newACL.setWriteAccess(req.user.id, true);
 	var dataArray = req.params.data;
 	// data array has parseClass and data params
+	if(dataArray && dataArray instanceof Array && dataArray.length > 0){
+		getUpdatedObjects(dataArray, req.user.getSessionToken(), newACL).then(function(array){
+			if(array && array.length >0){
+				return Parse.Object.saveAll(array, {
+					sessionToken:req.user.getSessionToken(),
+					success : function(list) {
+						// All the objects were saved.
+						response.success("OK");
+					},
+					error : function(obj, error) {
+						// An error occurred while saving one of the objects.
+						response.error(error);
+					},
+				});
+			} else {
+				console.log("No object was found");
+				response.success("OK");
+			}
+			
+		});
+	} else {
+		response.success("No data was provided");
+	}
 	
-	getUpdatedObjects(dataArray, req.user.getSessionToken(), newACL).then(function(array){
-		if(array && array.length >0){
-			return Parse.Object.saveAll(array, {
-				sessionToken:req.user.getSessionToken(),
-				success : function(list) {
-					// All the objects were saved.
-					response.success("OK");
-				},
-				error : function(obj, error) {
-					// An error occurred while saving one of the objects.
-					response.error(error);
-				},
-			});
-		} else {
-			console.log("No object was found");
-		}
-		
-	});
 	
 }
 

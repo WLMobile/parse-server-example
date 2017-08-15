@@ -2,6 +2,7 @@ Parse.Cloud.define('hello', function(req, res) {
 	res.success('Hello');
 });
 
+Parse.Cloud.define('getProducts', getProducts);
 Parse.Cloud.define('updateData', updateData);
 Parse.Cloud.define('syncData', syncData);
 Parse.Cloud.define('syncArray', syncArray);
@@ -13,6 +14,24 @@ Parse.Cloud.define('getLastBatchUpdates', getLastBatchUpdates);
 Parse.Cloud.define('updateAromaNames', updateAromaNames);
 Parse.Cloud.define('updateACL', updateACL);
 Parse.Cloud.define('deleteObjects', deleteObjects);
+
+function getProducts(req, response) {
+        // https://api_user:api_pass@x.myshopify.com/admin/products.json?fields=id,images,title,body-html&page=1
+	response.success([
+		{
+			'id': 1252,
+			'image_url': '',
+			'title': 'Matt\'s Test Product',
+			'description': 'This is the description of Matt\'s test product. Apple'
+		},
+		{
+			'id': 1255,
+			'image_url': '',
+			'title': 'Another Test Product. Apple',
+			'description': 'This is the description of another test product.'
+		}
+	]);
+}
 
 function updateAromaNames(req, response) {
 	if(req.params.aromaName && req.params.aromaId){

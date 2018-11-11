@@ -13,7 +13,7 @@
     "kerberos": "~1.0.0",
     "parse": "~1.8.0",
     "parse-server": "*",
-    "parse-server-simple-mailgun-adapter" : "*"
+    "parse-server-mailgun" : "*"
   },
   "scripts": {
     "start": "node index.js"

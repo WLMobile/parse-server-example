@@ -44,6 +44,7 @@ var api = new ParseServer({
             pathPlainText: path.join(__dirname, 'public/password_reset_email.txt'),
             pathHtml: path.join(__dirname, 'public/password_reset_email.html'),
         }
+    }
   },
     verifyUserEmails: true
 });

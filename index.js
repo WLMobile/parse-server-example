@@ -28,6 +28,7 @@ var api = new ParseServer({
       domain: 'sandboxde4f96b4c33f44588c02d62195ddb7cd.mailgun.org',
       // Your API key from mailgun.com
       apiKey: 'api:5dd330e7bc8a7241357be5854dc98889-4412457b-3e138ef5',
+      templates : {
       passwordResetEmail: {
             subject: 'Reset your password',
             pathPlainText: path.join(__dirname, 'public/password_reset_email.txt'),
@@ -70,6 +71,7 @@ var api = new ParseServer({
                 });
             })
         }
+      }
     }
   },
     verifyUserEmails: true

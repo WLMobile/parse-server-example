@@ -28,23 +28,22 @@ var api = new ParseServer({
       domain: 'sandboxde4f96b4c33f44588c02d62195ddb7cd.mailgun.org',
       // Your API key from mailgun.com
       apiKey: 'api:5dd330e7bc8a7241357be5854dc98889-4412457b-3e138ef5',
-      verificationEmail: {
-          subject: 'Confirm your account',
-          pathPlainText: path.join(__dirname, '/public/verification_email.txt'),
-          callback: (user) => { return { firstName: user.get('firstName') }}
-          // Now you can use {{firstName}} in your templates
-        },
       passwordResetEmail: {
-          subject: 'Reset your password',
-          pathPlainText: path.join(__dirname, '/public/verification_email.txt'),
-          callback: (user) => { return { firstName: user.get('firstName') }}
-          // Now you can use {{firstName}} in your templates
+            subject: 'Reset your password',
+            pathPlainText: path.join(__dirname, 'public/password_reset_email.txt'),
+            pathHtml: path.join(__dirname, 'public/password_reset_email.html'),
         },
-      customEmailAlert: {
-          subject: 'Urgent notification!',
-          pathPlainText: path.join(__dirname, '/public/verification_email.txt')
+        verificationEmail: {
+            subject: 'Confirm your account',
+            pathPlainText: path.join(__dirname, 'public/verification_email.txt'),
+            pathHtml: path.join(__dirname, 'public/verification_email.html'),
+            callback: () => {},
+        },
+        customAlert: {
+            subject: 'Important notice about your account',
+            pathPlainText: path.join(__dirname, 'public/password_reset_email.txt'),
+            pathHtml: path.join(__dirname, 'public/password_reset_email.html'),
         }
-    }
   },
     verifyUserEmails: true
 });

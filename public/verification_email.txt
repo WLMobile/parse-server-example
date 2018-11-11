@@ -1,8 +1,0 @@
-Hi {{username}},
-
-Thanks for signing up for AwesomeApp!
-Please confirm your account by clicking on the link below.
-
-{{{link}}}
-
-BaddaSushi

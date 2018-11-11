@@ -32,7 +32,7 @@ var api = new ParseServer({
             subject: 'Reset your password',
             pathPlainText: path.join(__dirname, 'public/password_reset_email.txt'),
             pathHtml: path.join(__dirname, 'public/password_reset_email.html'),
-        },
+       },
         verificationEmail: {
             subject: 'Confirm your account',
             pathPlainText: path.join(__dirname, 'public/verification_email.txt'),
@@ -43,6 +43,32 @@ var api = new ParseServer({
             subject: 'Important notice about your account',
             pathPlainText: path.join(__dirname, 'public/password_reset_email.txt'),
             pathHtml: path.join(__dirname, 'public/password_reset_email.html'),
+        },
+        customEmail: {
+            subject: 'Test custom email template',
+            pathPlainText: path.join(__dirname, 'email-templates/custom_email.txt'),
+            pathHtml: path.join(__dirname, 'email-templates/custom_email.html'),
+            extra: {
+                attachments: [
+                    {
+                        cid: '1px-trans-image',
+                        encoding: 'base64',
+                        filename: 'trans.gif',
+                        path: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP',
+                    }
+                ],
+                replyTo: 'reply@test.com',
+            },
+        },
+        customEmailWithCallback: {
+            subject: 'Test custom email template with callback',
+            pathPlainText: path.join(__dirname, 'email-templates/custom_email.txt'),
+            pathHtml: path.join(__dirname, 'email-templates/custom_email.html'),
+            callback: () => new Promise((resolve) => {
+                resolve({
+                    appName: 'correctAppName'
+                });
+            })
         }
     }
   },

@@ -24,11 +24,12 @@ function deleteOffers(req, response) {
 		if (!branch)
 			return Parse.Promise.as(null);
 		let offers = new Parse.Query("Offer");
-		offers.include("Branche");
-		offers.equalTo("Branche", branch);
+		offers.include("branche");
+		offers.equalTo("branche", branch);
 		return offers.find();
 	})
 	.then(function(offers) {
+		console.log("Got offers " + JSON.stringify(offers));
 		if(!offers)
 			return Parse.Promise.as(offers);
 		return Parse.Promise.when(offers.map(item => {

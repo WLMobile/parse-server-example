@@ -32,11 +32,14 @@ function deleteOffers(req, response) {
 		console.log("Got offers " + JSON.stringify(offers));
 		if(!offers)
 			return Parse.Promise.as(offers);
-		return Parse.Promise.when(offers.map(item => 
-			item.save({
-				deleted : true
-			})
-		))
+		var promises = offers.map(item => {
+				return item.save({
+					deleted : true
+				});
+			}
+		);
+		console.log("Promises: .... " + promises.toJSON());
+		return Parse.Promise.when(promises);
 	}).then(function() {
 		response.success();
 	});

@@ -32,13 +32,13 @@ function deleteOffers(req, response) {
 		console.log("Got offers " + JSON.stringify(offers));
 		if(!offers)
 			return Parse.Promise.as(offers);
-		return Parse.Promise.when(offers.map(item => {
-			return item.save({
+		return Parse.Promise.when(offers.map(item => 
+			item.save({
 				deleted : true
-			});
-		}))
+			})
+		))
 	}).then(function() {
-		return response.success();
+		response.success();
 	});
 }
 

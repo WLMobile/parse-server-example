@@ -29,7 +29,7 @@ function deleteOffers(req, response) {
 		return offers.find();
 	})
 	.then(function(offers1) {
-		console.log("Got offers " + JSON.stringify(offers));
+		console.log("Got offers " + JSON.stringify(offers1));
 		//if(!offers)
 		//	return Parse.Promise.as(offers);
 		var promises = offers1.map(item => {

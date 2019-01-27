@@ -38,7 +38,7 @@ function deleteOffers(req, response) {
 				});
 			}
 		);
-		console.log("Promises: .... " + promises.toJSON());
+		console.log("Promises: .... " + JSON.stringify(promises));
 		return Parse.Promise.when(promises);
 	}).then(function() {
 		response.success();

@@ -18,21 +18,21 @@ Parse.Cloud.define('deleteOffers', deleteOffers);
 
 function deleteOffers(req, response) {
 	let branchId = req.params.branchId;
-	let query = new Parse.Query("Branche");
+	var query = new Parse.Query("Branche");
 	return query.get(branchId)
 	.then(function(branch) {
 		if (!branch)
 			return Parse.Promise.as(null);
-		let offers = new Parse.Query("Offer");
+		var offers = new Parse.Query("Offer");
 		offers.include("branche");
 		offers.equalTo("branche", branch);
 		return offers.find();
 	})
-	.then(function(offers) {
+	.then(function(offers1) {
 		console.log("Got offers " + JSON.stringify(offers));
-		if(!offers)
-			return Parse.Promise.as(offers);
-		var promises = offers.map(item => {
+		//if(!offers)
+		//	return Parse.Promise.as(offers);
+		var promises = offers1.map(item => {
 				return item.save({
 					deleted : true
 				});

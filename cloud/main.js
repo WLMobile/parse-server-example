@@ -14,6 +14,32 @@ Parse.Cloud.define('getLastBatchUpdates', getLastBatchUpdates);
 Parse.Cloud.define('updateAromaNames', updateAromaNames);
 Parse.Cloud.define('updateACL', updateACL);
 Parse.Cloud.define('deleteObjects', deleteObjects);
+Parse.Cloud.define('deleteOffers', deleteOffers);
+
+function deleteOffers(req, response) {
+	let branchId = req.params.branchId;
+	let query = new Parse.Query("Branche");
+	return query.get(branchId)
+	.then(function(branch) {
+		if (!branch)
+			return Parse.Promise.as(null);
+		let offers = new Parse.Query("Offer");
+		offers.include("Branche");
+		offers.equalTo("Branche", branch);
+		return offers.find();
+	})
+	.then(function(offers) {
+		if(!offers)
+			return Parse.Promise.as(offers);
+		return Parse.Promise.when(offers.map(item => {
+			return item.save({
+				deleted : true
+			});
+		}))
+	}).then(function() {
+		return response.success();
+	});
+}
 
 function getProducts(req, response) {
         // https://api_user:api_pass@x.myshopify.com/admin/products.json?fields=id,images,title,body-html&page=1
